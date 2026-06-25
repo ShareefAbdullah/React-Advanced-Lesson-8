@@ -1,0 +1,48 @@
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchFilter } from "../redux/actions";
+
+export const Photos = (props) => {
+    const dispatch = useDispatch();
+    const photos = useSelector(state => state.photos);
+    const searchFilter = useSelector(state => state.searchFilter);
+    const selectedAlbumId = useSelector(state => state.selectedAlbumId);
+    const selectedPhotos = photos
+        .filter(photo => photo.albumId === selectedAlbumId)
+        .filter(photo => photo.title.indexOf(searchFilter) > -1);
+    
+    
+
+    if(selectedAlbumId === null) {
+        return (
+            <h3 className="no-selected-album"><span>←</span> Select an Album</h3>
+        );
+    }
+
+    const handleSearchFilter = (event) => {
+        dispatch(setSearchFilter(event.target.value));
+    }
+
+    return (
+        <div className="photos">
+            <div className="search-filter">
+                <input
+                    type="text" 
+                    placeholder="Search photos by name..." 
+                    value={searchFilter}
+                    onChange={handleSearchFilter}
+                />
+            </div>
+            <ul>
+                {
+                    selectedPhotos.map((photo) => {
+                        return (
+                            <li key={photo.id}>
+                                {photo.title}
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+        </div>
+    )
+};
