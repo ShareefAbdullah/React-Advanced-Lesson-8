@@ -1,7 +1,8 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { createLogger } from "redux-logger";
 import { thunk } from "redux-thunk";
-import { reducer } from "./reducer";
+import { albums } from "./albums/albums";
+import { photos } from "./photos/photos";
 
 
 const logger = createLogger({
@@ -9,4 +10,9 @@ const logger = createLogger({
     collapsed: true
 });
 
-export const store = createStore(reducer, applyMiddleware(thunk, logger));
+const rootState = combineReducers({
+    albums: albums,
+    photos: photos
+});
+
+export const store = createStore(rootState, applyMiddleware(thunk, logger));

@@ -3,9 +3,9 @@ import { setSearchFilter } from "../redux/actions";
 
 export const Photos = (props) => {
     const dispatch = useDispatch();
-    const photos = useSelector(state => state.photos);
-    const searchFilter = useSelector(state => state.searchFilter);
-    const selectedAlbumId = useSelector(state => state.selectedAlbumId);
+    const photos = useSelector(state => state.photos.photos);
+    const searchFilter = useSelector(state => state.photos.searchFilter);
+    const selectedAlbumId = useSelector(state => state.albums.selectedAlbumId);
     const selectedPhotos = photos
         .filter(photo => photo.albumId === selectedAlbumId)
         .filter(photo => photo.title.indexOf(searchFilter) > -1);

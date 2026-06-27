@@ -57,6 +57,11 @@ code {
   border-radius: 15px;
 }
 
+.selected {
+  background-color: #e1f8ff;
+  border-radius: 15px;
+}
+
 .album-title {
   font-size: 20px;
   font-weight: 500;

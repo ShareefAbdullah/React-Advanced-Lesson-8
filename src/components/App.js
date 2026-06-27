@@ -6,8 +6,8 @@ import { loadAlbums, loadPhotos } from "../redux/actions";
 
 function App() {
   const dispatch = useDispatch();
-  const isAlbumsLoading = useSelector(state => state.isAlbumsLoading);
-  const isPhotosLoading = useSelector(state => state.isPhotosLoading);
+  const isAlbumsLoading = useSelector(state => state.albums.isAlbumsLoading);
+  const isPhotosLoading = useSelector(state => state.photos.isPhotosLoading);
 
   useEffect(() => {
     dispatch(loadAlbums())
