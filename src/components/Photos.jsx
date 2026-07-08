@@ -1,18 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setSearchFilter } from "../redux/actions";
+import { useParams } from "react-router-dom";
 
 export const Photos = (props) => {
     const dispatch = useDispatch();
     const photos = useSelector(state => state.photos.photos);
     const searchFilter = useSelector(state => state.photos.searchFilter);
-    const selectedAlbumId = useSelector(state => state.albums.selectedAlbumId);
+    const id = parseInt(useParams().id);
     const selectedPhotos = photos
-        .filter(photo => photo.albumId === selectedAlbumId)
+        .filter(photo => photo.albumId === id)
         .filter(photo => photo.title.indexOf(searchFilter) > -1);
     
     
+    
+    
 
-    if(selectedAlbumId === null) {
+    if(isNaN(id)) {
         return (
             <h3 className="no-selected-album"><span>←</span> Select an Album</h3>
         );

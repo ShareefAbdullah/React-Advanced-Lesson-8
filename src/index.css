@@ -52,10 +52,18 @@ code {
   text-align: center;
 }
 
-.albums > ul > li:hover {
-  background-color: #e1f8ff;
-  border-radius: 15px;
+.albums > ul > li > a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 600;
 }
+
+.albums > ul > li > a:hover {
+  font-weight: 700;
+}
+
+
 
 .selected {
   background-color: #e1f8ff;
