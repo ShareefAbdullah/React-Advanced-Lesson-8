@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-.container {
+.container > div {
   width: 1400px;
   margin: auto;
   display: flex;
@@ -79,6 +79,14 @@ code {
   align-self: center;
   text-align: center;
   font-size: 20px;
+  flex: 1;
+  font-weight: 500;
+}
+
+.loading-selected-photos {
+  align-self: center;
+  text-align: center;
+  font-size: 18px;
   flex: 1;
   font-weight: 500;
 }

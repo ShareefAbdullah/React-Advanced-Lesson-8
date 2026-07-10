@@ -14,11 +14,11 @@ export const loadAlbums = () => {
     }
 }
 
-export const loadPhotos = () => {
+export const loadPhotos = (id) => {
     return (dispatch) => {
         dispatch({type: "photos/load/pending"});
 
-        fetch("https://jsonplaceholder.typicode.com/photos?_limit=500")
+        fetch(`https://jsonplaceholder.typicode.com/photos/?albumId=${id}`)
             .then((response) => response.json())
             .then((json) => {
                 dispatch({
@@ -26,13 +26,6 @@ export const loadPhotos = () => {
                     payload: json
                 });
             });
-    }
-}
-
-export const selectId = (albumId) => {
-    return {
-        type: "select/albumId",
-        payload: albumId
     }
 }
 

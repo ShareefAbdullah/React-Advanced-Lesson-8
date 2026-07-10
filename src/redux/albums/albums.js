@@ -1,6 +1,5 @@
 const initialState = {
     albums: [],
-    selectedAlbumId: null,
     isAlbumsLoading: false
 };
 
@@ -16,11 +15,6 @@ export const albums = (state = initialState, action) => {
                 ...state,
                 isAlbumsLoading: false,
                 albums: action.payload
-            }
-        case "select/albumId":
-            return {
-                ...state,
-                selectedAlbumId: action.payload
             }
 
         

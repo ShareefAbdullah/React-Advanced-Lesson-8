@@ -1,16 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { selectId } from "../redux/actions";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 
 export const Albums = (props) => {
     const albums = useSelector(state => state.albums.albums);
-    const selectedAlbumId = useSelector(state => state.albums.selectedAlbumId);
-    const dispatch = useDispatch();
-
-
-    const handleAlbumId = (id) =>{
-        dispatch(selectId(id));
-    }
+    const id = parseInt(useParams().id)
 
     return (
         <div className="albums">
@@ -18,10 +11,9 @@ export const Albums = (props) => {
                 {
                     albums.map((album) => {
                         return (
-                            <li 
-                                onClick={() => handleAlbumId(album.id)} 
+                            <li  
                                 key={album.id} 
-                                className={selectedAlbumId === album.id ? "selected" : ""}
+                                className={id === album.id ? "selected" : ""}
                             >
                                 <Link to={`/${album.id}`}>
                                     {album.title}

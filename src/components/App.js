@@ -2,33 +2,35 @@ import { useDispatch, useSelector } from "react-redux";
 import { Albums } from "./Albums";
 import { Photos } from "./Photos";
 import { useEffect } from "react";
-import { loadAlbums, loadPhotos } from "../redux/actions";
+import { loadAlbums } from "../redux/actions";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
   const isAlbumsLoading = useSelector(state => state.albums.isAlbumsLoading);
-  const isPhotosLoading = useSelector(state => state.photos.isPhotosLoading);
 
   useEffect(() => {
-    dispatch(loadAlbums())
-    dispatch(loadPhotos())
+    dispatch(loadAlbums());
   }, []);
 
-  if (isAlbumsLoading || isPhotosLoading) {
+  if (isAlbumsLoading) {
     return (
-      <p className="preloader">Loading the data...</p>
+      <p className="preloader">Loading the albums...</p>
     );
   }
 
   return (
     <div className="container">
-      <Albums />
       
       <Routes>
         <Route
           path="/:id?"
-          element={<Photos />}
+          element={
+            <div className="wrapper">
+              <Albums />
+              <Photos />
+            </div>
+          }
         />
       </Routes>
 

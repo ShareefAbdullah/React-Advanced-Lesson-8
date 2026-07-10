@@ -1,23 +1,34 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setSearchFilter } from "../redux/actions";
+import { loadPhotos, setSearchFilter } from "../redux/actions";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Photos = (props) => {
     const dispatch = useDispatch();
     const photos = useSelector(state => state.photos.photos);
     const searchFilter = useSelector(state => state.photos.searchFilter);
+    const isPhotosLoading = useSelector(state => state.photos.isPhotosLoading);
     const id = parseInt(useParams().id);
+    const stringId = id.toString();
     const selectedPhotos = photos
         .filter(photo => photo.albumId === id)
         .filter(photo => photo.title.indexOf(searchFilter) > -1);
-    
-    
-    
-    
 
-    if(isNaN(id)) {
+    useEffect(() => {
+        if (id) {
+            dispatch(loadPhotos(stringId));
+        }
+      }, [stringId]); 
+
+    if (isNaN(id)) {
         return (
             <h3 className="no-selected-album"><span>←</span> Select an Album</h3>
+        );
+    }
+
+    if (isPhotosLoading) {
+        return (
+            <h3 className="loading-selected-photos">Loading the photos...</h3>
         );
     }
 
