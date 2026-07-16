@@ -7,21 +7,18 @@ import { Route, Routes } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
-  const isAlbumsLoading = useSelector(state => state.albums.isAlbumsLoading);
+  const isAlbumsLoading = useSelector((state) => state.albums.isAlbumsLoading);
 
   useEffect(() => {
     dispatch(loadAlbums());
   }, []);
 
   if (isAlbumsLoading) {
-    return (
-      <p className="preloader">Loading the albums...</p>
-    );
+    return <p className="preloader">Loading the albums...</p>;
   }
 
   return (
     <div className="container">
-      
       <Routes>
         <Route
           path="/:id?"
@@ -33,7 +30,6 @@ function App() {
           }
         />
       </Routes>
-
     </div>
   );
 }
