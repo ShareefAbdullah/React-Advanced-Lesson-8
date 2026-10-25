@@ -27,7 +27,8 @@
 }
 
 .albums > ul > li > a:hover {
-  font-weight: 700;
+  background-color: #e1f8ff;
+  border-radius: 5px;
 }
 
 .selected {

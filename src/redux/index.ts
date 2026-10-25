@@ -13,5 +13,8 @@ const rootState = combineReducers({
   albums: albums,
   photos: photos,
 });
-
+// @ts-ignore
 export const store = createStore(rootState, applyMiddleware(thunk, logger));
+
+export type RootState = ReturnType<typeof rootState>;
+export type AppDispatch = typeof store.dispatch;

@@ -1,27 +1,30 @@
-import { useSelector, useDispatch } from "react-redux";
 import { loadPhotos, setSearchFilter } from "../redux/actions";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import styles from "./Photos.module.css";
+import { useTypedDispatch, useTypedSelector } from "../hooks";
 
-export const Photos = (props) => {
-  const dispatch = useDispatch();
-  const photos = useSelector((state) => state.photos.photos);
-  const searchFilter = useSelector((state) => state.photos.searchFilter);
-  const isPhotosLoading = useSelector((state) => state.photos.isPhotosLoading);
-  const id = parseInt(useParams().id);
-  const stringId = id.toString();
+export const Photos: React.FC = () => {
+  const dispatch = useTypedDispatch();
+  const photos = useTypedSelector((state) => state.photos.photos);
+  const searchFilter = useTypedSelector((state) => state.photos.searchFilter);
+  const isPhotosLoading = useTypedSelector(
+    (state) => state.photos.isPhotosLoading
+  );
+  const { id: urlId } = useParams<{ id: string }>();
+  const id = urlId ? parseInt(urlId, 10) : null;
+
   const selectedPhotos = photos
     .filter((photo) => photo.albumId === id)
     .filter((photo) => photo.title.indexOf(searchFilter) > -1);
 
   useEffect(() => {
-    if (id) {
-      dispatch(loadPhotos(stringId));
+    if (id !== null && !isNaN(id)) {
+      dispatch(loadPhotos(id));
     }
-  }, [stringId]);
+  }, [id]);
 
-  if (isNaN(id)) {
+  if (id === null || isNaN(id)) {
     return (
       <h3 className={styles["no-selected-album"]}>
         <span>←</span> Select an Album
@@ -37,7 +40,7 @@ export const Photos = (props) => {
     );
   }
 
-  const handleSearchFilter = (event) => {
+  const handleSearchFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchFilter(event.target.value));
   };
 
