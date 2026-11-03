@@ -24,7 +24,8 @@
   font-weight: 500;
 }
 
-.loading-selected-photos {
+.loading-selected-photos,
+.photos-error {
   align-self: center;
   text-align: center;
   font-size: 18px;

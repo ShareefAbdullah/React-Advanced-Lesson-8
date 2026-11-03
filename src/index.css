@@ -19,6 +19,7 @@ code {
   align-items: flex-start;
 }
 
-.preloader {
+.preloader,
+.preloader-error {
   text-align: center;
 }

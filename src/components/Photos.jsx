@@ -1,14 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
-import { loadPhotos, setSearchFilter } from "../redux/actions";
+import { setSearchFilter } from "../redux/photos/photosSlice";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import styles from "./Photos.module.css";
+import { loadPhotos } from "../redux/photos/photosSlice";
 
-export const Photos = (props) => {
+export const Photos = () => {
   const dispatch = useDispatch();
   const photos = useSelector((state) => state.photos.photos);
   const searchFilter = useSelector((state) => state.photos.searchFilter);
   const isPhotosLoading = useSelector((state) => state.photos.isPhotosLoading);
+  const isError = useSelector((state) => state.photos.error);
   const id = parseInt(useParams().id);
   const stringId = id.toString();
   const selectedPhotos = photos
@@ -35,6 +37,10 @@ export const Photos = (props) => {
         Loading the photos...
       </h3>
     );
+  }
+
+  if (isError) {
+    return <h3 className={styles["photos-error"]}>Failed to load photos.</h3>;
   }
 
   const handleSearchFilter = (event) => {

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import styles from "./Albums.module.css";
 
-export const Albums = (props) => {
+export const Albums = () => {
   const albums = useSelector((state) => state.albums.albums);
   const id = parseInt(useParams().id);
 
