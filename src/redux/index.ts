@@ -8,3 +8,6 @@ export const store = configureStore({
     photos: photosReducer,
   },
 });
+
+export type Rootstate = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

@@ -1,29 +1,32 @@
-import { useSelector, useDispatch } from "react-redux";
 import { setSearchFilter } from "../redux/photos/photosSlice";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import styles from "./Photos.module.css";
+import { ChangeEvent, useEffect } from "react";
+import styles from "./photos.module.scss";
 import { loadPhotos } from "../redux/photos/photosSlice";
+import { useTypedDispatch, useTypedSelector } from "../redux/hooks";
 
 export const Photos = () => {
-  const dispatch = useDispatch();
-  const photos = useSelector((state) => state.photos.photos);
-  const searchFilter = useSelector((state) => state.photos.searchFilter);
-  const isPhotosLoading = useSelector((state) => state.photos.isPhotosLoading);
-  const isError = useSelector((state) => state.photos.error);
-  const id = parseInt(useParams().id);
-  const stringId = id.toString();
+  const dispatch = useTypedDispatch();
+  const photos = useTypedSelector((state) => state.photos.photos);
+  const searchFilter = useTypedSelector((state) => state.photos.searchFilter);
+  const isPhotosLoading = useTypedSelector(
+    (state) => state.photos.isPhotosLoading
+  );
+  const isError = useTypedSelector((state) => state.photos.error);
+  const { id } = useParams<{ id: string }>();
+  const numberId = Number(id);
+
   const selectedPhotos = photos
-    .filter((photo) => photo.albumId === id)
+    .filter((photo) => photo.albumId === numberId)
     .filter((photo) => photo.title.indexOf(searchFilter) > -1);
 
   useEffect(() => {
     if (id) {
-      dispatch(loadPhotos(stringId));
+      dispatch(loadPhotos(id));
     }
-  }, [stringId]);
+  }, [id]);
 
-  if (isNaN(id)) {
+  if (isNaN(numberId)) {
     return (
       <h3 className={styles["no-selected-album"]}>
         <span>←</span> Select an Album
@@ -43,7 +46,7 @@ export const Photos = () => {
     return <h3 className={styles["photos-error"]}>Failed to load photos.</h3>;
   }
 
-  const handleSearchFilter = (event) => {
+  const handleSearchFilter = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchFilter(event.target.value));
   };
 

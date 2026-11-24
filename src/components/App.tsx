@@ -1,14 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
 import { Albums } from "./Albums";
 import { Photos } from "./Photos";
 import { useEffect } from "react";
 import { loadAlbums } from "../redux/albums/albumsSlice";
 import { Route, Routes } from "react-router-dom";
+import { useTypedDispatch, useTypedSelector } from "../redux/hooks";
 
 function App() {
-  const dispatch = useDispatch();
-  const isAlbumsLoading = useSelector((state) => state.albums.isAlbumsLoading);
-  const isAlbumsError = useSelector((state) => state.albums.error);
+  const dispatch = useTypedDispatch();
+  const isAlbumsLoading = useTypedSelector(
+    (state) => state.albums.isAlbumsLoading
+  );
+  const isAlbumsError = useTypedSelector((state) => state.albums.error);
   useEffect(() => {
     dispatch(loadAlbums());
   }, []);

@@ -1,19 +1,19 @@
-.photos > ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 .photos {
   width: 800px;
   margin: 0 auto;
-}
 
-.photos > ul > li {
-  border: 1px solid grey;
-  padding: 1px;
-  margin: 0 0 20px 0;
-  text-align: center;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      border: 1px solid grey;
+      padding: 1px;
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
+  }
 }
 
 .no-selected-album {
@@ -22,6 +22,11 @@
   font-size: 20px;
   flex: 1;
   font-weight: 500;
+
+  span {
+    color: darkblue;
+    font-size: 25px;
+  }
 }
 
 .loading-selected-photos,
@@ -33,17 +38,12 @@
   font-weight: 500;
 }
 
-.no-selected-album > span {
-  color: darkblue;
-  font-size: 25px;
-}
-
 .search-filter {
   margin-bottom: 20px;
-}
 
-.search-filter > input {
-  width: 778px;
-  padding: 10px;
-  border: 2px solid black;
+  input {
+    width: 778px;
+    padding: 10px;
+    border: 2px solid black;
+  }
 }
